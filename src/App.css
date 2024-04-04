@@ -47,3 +47,34 @@
 .Add-button img {
   cursor: pointer;
 }
+
+.Note-button.selected {
+  border-left: 5px solid #007bff; /* Couleur de la bande */
+}
+
+
+.Note-button.loading {
+  position: relative;
+}
+
+.Note-button.loading .loader {
+  position: absolute;
+  top: 50%;
+  right: 10px; 
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 2px solid #007bff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
