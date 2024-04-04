@@ -82,6 +82,18 @@ function App() {
     setNotes([data, ...notes]);
   };
 
+  const deleteNote = async (noteId) => {
+    const response = await fetch(`/notes/${noteId}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      setNotes(notes.filter((note) => note.id !== noteId));
+      // on se déselectionne
+      setSelectedNoteId(null);
+    }
+  };
+
   return (
     <>
       <aside className="Side">
@@ -94,6 +106,7 @@ function App() {
               <Button
                 key={note.id}
                 onClick={() => setSelectedNoteId(note.id)}
+                onDelete={() => deleteNote(note.id)} // Ajout de la fonction de suppression onDelete
                 selected={selectedNoteId === note.id}
                 loading={pendingChanges[note.id]}
                 className={`Note-button`}
