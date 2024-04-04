@@ -5,14 +5,16 @@
     display: block;
     width: 100%;
     padding: 12px;
+    padding-right: 20px;
     display: flex;
-    justify-content: start;
-    align-items: center;
+    flex-direction: column;
     border: none;
     background: none;
     color: inherit;
     font-weight: bold;
-    border-left: 5px solid transparent; /* Ajout de la bordure gauche */
+    border-left: 5px solid transparent; /* Ajout de la bordure gauche */    
+    gap: 10px;
+    
   }
   
   .button:hover {
@@ -45,14 +47,20 @@
     }
   }
 
-  .delete-icon {
+  .delete-icon, .pin-icon, .check-icon {
     cursor: pointer;
     width: 20px;
     height: 20px; 
   }
 
-  .pin-icon {
-    cursor: pointer;
-    width: 20px;
-    height: 20px; 
+  .iconsContainer {
+    display: flex;
+    flex-direction: row;
+    /* ajout d'un espace entre chaque icon */
+    gap: 20px;
   }
+  
+  .iconsContainer > div {
+    margin-top: 5px; /* Espacement entre les icônes */
+  }
+  

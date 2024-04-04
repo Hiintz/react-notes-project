@@ -16,11 +16,11 @@ function App() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (pendingChanges[selectedNoteId]) {
-        saveChanges(selectedNoteId);
-        setPendingChanges((prev) => ({
-          ...prev,
-          [selectedNoteId]: false,
+      if (pendingChanges[selectedNoteId]) { // Vérifier si des changements sont en attente
+        saveChanges(selectedNoteId); // Sauvegarder les changements
+        setPendingChanges((prev) => ({ // Mettre à jour l'état des changements en attente
+          ...prev, // Conserver les autres notes inchangées
+          [selectedNoteId]: false, // Marquer les changements comme sauvegardés
         }));
       }
     }, 1000); // Attendre 1000 ms avant d'envoyer la requête
@@ -80,6 +80,7 @@ function App() {
     });
     const data = await response.json();
     setNotes([data, ...notes]);
+    setSelectedNoteId(data.id);
   };
 
   const deleteNote = async (noteId) => {
@@ -94,6 +95,74 @@ function App() {
     }
   };
 
+  const checkNote = async (noteId) => {
+    const note = notes.find((n) => n.id === noteId);
+    if (!note) return;
+
+    const response = await fetch(`/notes/${noteId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isCheck: !note.isCheck }),
+    });
+
+    if (response.ok) {
+      fetchNotes();
+    }
+  }
+
+  const unCheckNote = async (noteId) => {
+    const note = notes.find((n) => n.id === noteId);
+    if (!note) return;
+
+    const response = await fetch(`/notes/${noteId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isCheck: !note.isCheck }),
+    });
+
+    if (response.ok) {
+      fetchNotes();
+    }
+  }
+
+  const pinNote = async (noteId) => {
+    const note = notes.find((n) => n.id === noteId);
+    if (!note) return;
+
+    const response = await fetch(`/notes/${noteId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isPin: !note.isPin }),
+    });
+
+    if (response.ok) {
+      fetchNotes();
+    }
+  }
+
+  const unPinNote = async (noteId) => {
+    const note = notes.find((n) => n.id === noteId);
+    if (!note) return;
+
+    const response = await fetch(`/notes/${noteId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isPin: !note.isPin }),
+    });
+
+    if (response.ok) {
+      fetchNotes();
+    }
+  }
+
   return (
     <>
       <aside className="Side">
@@ -103,17 +172,24 @@ function App() {
         {isLoading
           ? "Chargement…"
           : notes?.map((note) => (
-              <Button
-                key={note.id}
-                onClick={() => setSelectedNoteId(note.id)}
-                onDelete={() => deleteNote(note.id)} // Ajout de la fonction de suppression onDelete
-                selected={selectedNoteId === note.id}
-                loading={pendingChanges[note.id]}
-                className={`Note-button`}
-              >
-                {note.title}
-              </Button>
-            ))}
+            <Button
+              key={note.id}
+              onClick={() => setSelectedNoteId(note.id)}
+              onDelete={() => deleteNote(note.id)}
+              onCheck={() => checkNote(note.id)}
+              onUnCheck={() => unCheckNote(note.id)}
+              onPin={() => pinNote(note.id)}
+              onUnPin={() => unPinNote(note.id)}
+              selected={selectedNoteId === note.id}
+              loading={pendingChanges[note.id]}
+              isCheck={note.isCheck} 
+              isPin={note.isPin}
+              className={`Note-button`}
+            >
+              {note.title}
+            </Button>
+
+          ))}
       </aside>
       <main className="Main">
         {selectedNoteId && (
@@ -138,7 +214,6 @@ function App() {
                 ""
               }
               onChange={handleChange}
-              style={{ width: "100%", height: "100%" }}
             />
           </div>
         )}

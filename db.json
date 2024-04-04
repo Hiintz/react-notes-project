@@ -2,39 +2,51 @@
   "notes": [
     {
       "id": "bde1",
-      "title": "A faire",
-      "content": "- composent loading, note",
-      "date": "2024-04-04T10:44:20.585Z"
+      "title": "A faire /!\\",
+      "content": "- composent loading, note, etc.\n- Ajouter la recherche (titre + body)\n- Affichage des Pined en haut avec séparation par une barre\n- Affichage des messages d'erreurs\n- Revoir le Loader\n- Theme jour/nuit ?\n- Affichage de l'User\n",
+      "date": "2024-04-04T14:45:04.189Z",
+      "isPin": true,
+      "isCheck": false
     },
     {
       "id": "2204",
       "title": "11111122223333333",
       "content": "1111122222222",
-      "date": "2024-04-04T12:50:40.633Z"
+      "date": "2024-04-04T12:50:40.633Z",
+      "isPin": true,
+      "isCheck": false
     },
     {
       "id": "b21f",
       "title": "azerty1",
       "content": "1111111111111111111111",
-      "date": "2024-04-04T12:25:35.705Z"
+      "date": "2024-04-04T12:25:35.705Z",
+      "isPin": false,
+      "isCheck": false
     },
     {
       "id": "1910",
       "title": "3615",
       "content": "3615",
-      "date": "2024-04-04T10:40:03.993Z"
+      "date": "2024-04-04T10:40:03.993Z",
+      "isPin": false,
+      "isCheck": false
     },
     {
       "id": "b0c7",
       "title": "azerty2",
       "content": "2222222222222222222222222",
-      "date": "2024-04-04T10:53:50.763Z"
+      "date": "2024-04-04T10:53:50.763Z",
+      "isPin": false,
+      "isCheck": false
     },
     {
-      "id": "1fbb",
+      "id": "8546",
       "title": "Nouvelle note",
-      "content": "",
-      "date": "2024-04-04T12:50:59.296Z"
+      "content": "hgfhj1",
+      "date": "2024-04-04T14:05:48.743Z",
+      "isPin": true,
+      "isCheck": false
     }
   ],
   "profile": {
