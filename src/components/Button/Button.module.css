@@ -24,17 +24,17 @@
   }
   
   .loader {
-    position: absolute; /* Ajout de la position absolue */
-    top: 50%; /* Centre vertical */
-    right: 10px; /* 10px de marge à droite */
-    transform: translateY(-50%); /* Décalage de moitié de la hauteur du loader */
+    position: absolute;
+    top: 50%;
+    right: 5px; /* Ajustez la marge à droite pour positionner le loader */
+    transform: translateY(-50%);
     width: 10px;
     height: 10px;
     border: 2px solid #007bff;
     border-radius: 50%;
     border-top-color: transparent;
     animation: spin 1s linear infinite;
-  }
+}
   
   @keyframes spin {
     0% {

@@ -4,23 +4,22 @@ import styles from "./Button.module.css";
 
 function Button({ onClick, onDelete, selected, loading, className, children }) {
   return (
-    <button onClick={onClick} className={className}>
-      {children}
-      {loading && <span className="loader"></span>}
+    <button onClick={onClick} className={`${styles.button} ${selected ? styles.selected : ""}`}>
       {selected && (
         <img 
           src={deleteIcon} 
           alt="Supprimer" 
-          className={styles["delete-icon"]}
+          className={styles["delete-icon"]} 
           onClick={(e) => {
-            e.stopPropagation(); // Empêcher la propagation du clic vers le parent
+            e.stopPropagation();
             if (window.confirm("Voulez-vous vraiment supprimer cette note ?")) {
-              onDelete(); // Appeler la fonction de suppression
+              onDelete();
             }
-            
           }} 
         />
       )}
+      {children}
+      {loading && <span className={styles.loader}></span>}
     </button>
   );
 }
