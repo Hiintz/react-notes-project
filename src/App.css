@@ -1,3 +1,5 @@
+/* App.css */
+
 .Side {
   position: fixed;
   width: 240px;
@@ -12,7 +14,8 @@
   margin-inline-start: 240px;
 }
 
-.Note-button {
+.Note-button,
+.Add-button {
   display: block;
   width: 100%;
   padding: 12px;
@@ -30,18 +33,7 @@
 }
 
 .Add-button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  border: none;
-  background: none;
-  color: inherit;
-  font-weight: bold;
   text-decoration: underline;
-
 }
 
 .Add-button img {
@@ -51,7 +43,6 @@
 .Note-button.selected {
   border-left: 5px solid #007bff; /* Couleur de la bande */
 }
-
 
 .Note-button.loading {
   position: relative;
@@ -77,4 +68,19 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+input[type="text"],
+textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #007bff;
 }

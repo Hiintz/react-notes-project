@@ -1,9 +1,18 @@
-import styles from './Button.module.css';
+import React from "react";
+import styles from "./Button.module.css";
 
-export function Button({ onClick, children }) {
+const Button = ({ onClick, children, selected, loading }) => {
   return (
-    <div className={styles.Button} onClick={onClick}>
+    <button
+      className={`${styles.button} ${selected ? styles.selected : ""} ${
+        loading ? styles.loading : ""
+      }`}
+      onClick={onClick}
+    >
       {children}
-    </div>
+      {loading && <span className={styles.loader}></span>}
+    </button>
   );
-}
+};
+
+export default Button;

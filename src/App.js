@@ -1,13 +1,14 @@
 import plusIcon from "./plus.svg";
 import "./App.css";
+import Button from "./components/Button/Button";
 import { useEffect, useState, useRef } from "react";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [notes, setNotes] = useState(null);
-  const [selectedNote, setSelectedNote] = useState(null);
-  const [pendingChanges, setPendingChanges] = useState(false);
-  const lastChangedData = useRef(null);
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const [pendingChanges, setPendingChanges] = useState({});
+  const lastChangedData = useRef({});
 
   useEffect(() => {
     fetchNotes();
@@ -15,14 +16,17 @@ function App() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (pendingChanges) {
-        saveChanges();
-        setPendingChanges(false);
+      if (pendingChanges[selectedNoteId]) {
+        saveChanges(selectedNoteId);
+        setPendingChanges((prev) => ({
+          ...prev,
+          [selectedNoteId]: false,
+        }));
       }
     }, 1000); // Attendre 1000 ms avant d'envoyer la requête
 
     return () => clearTimeout(timeout);
-  }, [pendingChanges]);
+  }, [pendingChanges, selectedNoteId]);
 
   const fetchNotes = async () => {
     const response = await fetch("/notes");
@@ -32,15 +36,16 @@ function App() {
     setIsLoading(false);
   };
 
-  const saveChanges = async () => {
-    if (!selectedNote || !lastChangedData.current) return;
+  const saveChanges = async (noteId) => {
+    const note = notes.find((n) => n.id === noteId);
+    if (!note || !lastChangedData.current[noteId]) return;
 
-    const response = await fetch(`/notes/${selectedNote.id}`, {
+    const response = await fetch(`/notes/${noteId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(lastChangedData.current),
+      body: JSON.stringify(lastChangedData.current[noteId]),
     });
 
     if (response.ok) {
@@ -50,16 +55,15 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSelectedNote((prevNote) => ({
-      ...prevNote,
-      [name]: value,
-    }));
-    lastChangedData.current = {
-      ...lastChangedData.current,
+    lastChangedData.current[selectedNoteId] = {
+      ...lastChangedData.current[selectedNoteId],
       [name]: value,
       date: new Date().toISOString(),
     };
-    setPendingChanges(true); // Déclencher la sauvegarde différée des changements
+    setPendingChanges((prev) => ({
+      ...prev,
+      [selectedNoteId]: true,
+    }));
   };
 
   const createNote = async () => {
@@ -87,29 +91,39 @@ function App() {
         {isLoading
           ? "Chargement…"
           : notes?.map((note) => (
-              <button
-                className={`Note-button ${selectedNote && selectedNote.id === note.id ? 'selected' : ''} ${pendingChanges && selectedNote && selectedNote.id === note.id ? 'loading' : ''}`}
+              <Button
                 key={note.id}
-                onClick={() => setSelectedNote(note)}
+                onClick={() => setSelectedNoteId(note.id)}
+                selected={selectedNoteId === note.id}
+                loading={pendingChanges[note.id]}
+                className={`Note-button`}
               >
-                {note.title} {pendingChanges && selectedNote && selectedNote.id === note.id && <span className="loader"></span>}
-              </button>
+                {note.title}
+              </Button>
             ))}
       </aside>
       <main className="Main">
-        {selectedNote && (
+        {selectedNoteId && (
           <div>
             <h2>
               <input
                 type="text"
                 name="title"
-                value={selectedNote.title}
+                value={
+                  lastChangedData.current[selectedNoteId]?.title ||
+                  notes.find((note) => note.id === selectedNoteId)?.title ||
+                  ""
+                }
                 onChange={handleChange}
               />
             </h2>
             <textarea
               name="content"
-              value={selectedNote.content}
+              value={
+                lastChangedData.current[selectedNoteId]?.content ||
+                notes.find((note) => note.id === selectedNoteId)?.content ||
+                ""
+              }
               onChange={handleChange}
               style={{ width: "100%", height: "100%" }}
             />

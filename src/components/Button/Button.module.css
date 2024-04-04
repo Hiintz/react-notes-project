@@ -1,7 +1,47 @@
-.Button img{
+/* Button.module.css */
+
+.button {
+    position: relative; /* Ajout de la position relative */
+    display: block;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 5px;
-}
+    background: none;
+    color: inherit;
+    font-weight: bold;
+    border-left: 5px solid transparent; /* Ajout de la bordure gauche */
+  }
+  
+  .button:hover {
+    background: rgb(60, 60, 60);
+  }
+  
+  .button.selected {
+    border-left-color: #007bff; /* Couleur de la bordure gauche */
+  }
+  
+  .loader {
+    position: absolute; /* Ajout de la position absolue */
+    top: 50%; /* Centre vertical */
+    right: 10px; /* 10px de marge à droite */
+    transform: translateY(-50%); /* Décalage de moitié de la hauteur du loader */
+    width: 10px;
+    height: 10px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
