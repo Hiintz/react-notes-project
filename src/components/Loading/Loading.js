@@ -3,8 +3,8 @@ import "./Loading.css";
 export function Loading() {
     return (
         <>
-            <div class="loading-container">
-                <div class="lds-ring">
+            <div className="loading-container">
+                <div className="lds-ring">
                     <div></div>
                     <div></div>
                     <div></div>

@@ -3,8 +3,8 @@
     {
       "id": "bde1",
       "title": "A faire /!\\",
-      "content": "- Affichage des messages d'erreurs\n- Theme jour/nuit ?\n- Affichage de l'User\n",
-      "date": "2024-04-05T10:46:57.558Z",
+      "content": "- Affichage des messages d'erreurs\n- Theme jour/nuit ? \n- pagination (overflow-y:auto)\n- tags",
+      "date": "2024-04-05T12:13:49.159Z",
       "isPin": true,
       "isCheck": false
     },
@@ -41,12 +41,18 @@
       "isCheck": false
     },
     {
-      "id": "8546",
+      "id": "cf68",
+      "title": "Nouvelle notePined et Checked",
+      "content": "",
+      "date": "2024-04-05T12:02:58.608Z",
+      "isCheck": true,
+      "isPin": true
+    },
+    {
+      "id": "abbf",
       "title": "Nouvelle note",
-      "content": "hgfhj1",
-      "date": "2024-04-04T14:05:48.743Z",
-      "isPin": false,
-      "isCheck": true
+      "content": "test",
+      "date": "2024-04-05T12:10:32.049Z"
     }
   ],
   "profile": {

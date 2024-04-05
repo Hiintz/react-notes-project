@@ -236,6 +236,7 @@ function App() {
               <input
                 type="text"
                 name="title"
+                maxLength={30}
                 value={
                   lastChangedData.current[selectedNoteId]?.title ||
                   notes.find((note) => note.id === selectedNoteId)?.title ||
