@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [notes, setNotes] = useState(null);
+  const [user, setUser] = useState(null);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [pendingChanges, setPendingChanges] = useState({});
   const lastChangedData = useRef({});
@@ -14,6 +15,7 @@ function App() {
 
   useEffect(() => {
     fetchNotes();
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -36,6 +38,12 @@ function App() {
     data.sort((a, b) => new Date(b.date) - new Date(a.date));
     setNotes(data);
     setIsLoading(false);
+  };
+
+  const fetchUser = async () => {
+    const response = await fetch("/profile");
+    const user = await response.json();
+    setUser(user);
   };
 
   const saveChanges = async (noteId) => {
@@ -170,8 +178,7 @@ function App() {
         note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         note.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
-};
-  
+}; 
 
   return (
     <>
@@ -222,6 +229,7 @@ function App() {
         )}
       </aside>
       <main className="Main">
+      <div className="UserName">{user && user.name}</div>
         {selectedNoteId && (
           <div>
             <h2>
