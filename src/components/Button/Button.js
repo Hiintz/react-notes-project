@@ -4,6 +4,7 @@ import pinIcon from "./pin.svg";
 import unPinIcon from "./unpin.svg";
 import checkIcon from "./check.svg";
 import checkCircleIcon from "./check_circle.svg";
+import { Loading } from "../Loading/Loading";
 import styles from "./Button.module.css";
 
 function Button({ onClick, onDelete, onCheck, onUnCheck, onPin, onUnPin, selected, loading, isCheck, isPin, children }) {
@@ -11,6 +12,12 @@ function Button({ onClick, onDelete, onCheck, onUnCheck, onPin, onUnPin, selecte
     <button onClick={onClick} className={`${styles.button} ${selected ? styles.selected : ""}`}>
       {children}
       {loading && <span className={styles.loader}></span>}
+      {!selected && (
+        <div className={styles.iconsContainer}>
+          {isPin && <img src={pinIcon} alt="Épingler" className={styles["pin-icon"]} />}
+          {isCheck && <img src={checkCircleIcon} alt="Check" className={styles["check-icon"]} />}
+        </div>
+      )}
       {selected && (
         <div className={styles.iconsContainer}>
           {isPin ? (

@@ -1,6 +1,7 @@
 import plusIcon from "./plus.svg";
 import "./App.css";
 import Button from "./components/Button/Button";
+import { Loading } from "./components/Loading/Loading";
 import { useEffect, useState, useRef } from "react";
 
 function App() {
@@ -166,12 +167,15 @@ function App() {
   return (
     <>
       <aside className="Side">
-        <div className="Add-button">
-          <img src={plusIcon} alt="Ajouter une note" onClick={createNote} />
-        </div>
-        {isLoading
-          ? "Chargement…"
-          : notes?.map((note) => (
+      <div className="Add-button">
+        <img src={plusIcon} alt="Ajouter une note" onClick={createNote} />
+      </div>
+      {isLoading ? (
+      <Loading />
+      ) : (
+        <>
+          {/* Afficher les notes épinglées */}
+          {notes.filter((note) => note.isPin).map((note) => (
             <Button
               key={note.id}
               onClick={() => setSelectedNoteId(note.id)}
@@ -188,9 +192,31 @@ function App() {
             >
               {note.title}
             </Button>
-
           ))}
-      </aside>
+          {/* Ajouter une ligne de séparation */}
+          {notes.some((note) => note.isPin) && <hr />}
+          {/* Afficher les notes non épinglées */}
+          {notes.filter((note) => !note.isPin).map((note) => (
+            <Button
+              key={note.id}
+              onClick={() => setSelectedNoteId(note.id)}
+              onDelete={() => deleteNote(note.id)}
+              onCheck={() => checkNote(note.id)}
+              onUnCheck={() => unCheckNote(note.id)}
+              onPin={() => pinNote(note.id)}
+              onUnPin={() => unPinNote(note.id)}
+              selected={selectedNoteId === note.id}
+              loading={pendingChanges[note.id]}
+              isCheck={note.isCheck} 
+              isPin={note.isPin}
+              className={`Note-button`}
+            >
+              {note.title}
+            </Button>
+          ))}
+        </>
+      )}
+    </aside>
       <main className="Main">
         {selectedNoteId && (
           <div>
