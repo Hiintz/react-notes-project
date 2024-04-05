@@ -1,7 +1,7 @@
-import plusIcon from "./plus.svg";
 import "./App.css";
 import Button from "./components/Button/Button";
-import { Loading } from "./components/Loading/Loading";
+import { Loading }  from "./components/Loading/Loading";
+import { HeaderAside } from "./components/HeaderAside/HeaderAside";
 import { useEffect, useState, useRef } from "react";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [pendingChanges, setPendingChanges] = useState({});
   const lastChangedData = useRef({});
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchNotes();
@@ -164,59 +165,62 @@ function App() {
     }
   }
 
+  const filterNotes = (notes) => {
+    return notes.filter((note) =>
+        note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        note.content.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+};
+  
+
   return (
     <>
       <aside className="Side">
-      <div className="Add-button">
-        <img src={plusIcon} alt="Ajouter une note" onClick={createNote} />
-      </div>
-      {isLoading ? (
-      <Loading />
-      ) : (
-        <>
-          {/* Afficher les notes épinglées */}
-          {notes.filter((note) => note.isPin).map((note) => (
-            <Button
-              key={note.id}
-              onClick={() => setSelectedNoteId(note.id)}
-              onDelete={() => deleteNote(note.id)}
-              onCheck={() => checkNote(note.id)}
-              onUnCheck={() => unCheckNote(note.id)}
-              onPin={() => pinNote(note.id)}
-              onUnPin={() => unPinNote(note.id)}
-              selected={selectedNoteId === note.id}
-              loading={pendingChanges[note.id]}
-              isCheck={note.isCheck} 
-              isPin={note.isPin}
-              className={`Note-button`}
-            >
-              {note.title}
-            </Button>
-          ))}
-          {/* Ajouter une ligne de séparation */}
-          {notes.some((note) => note.isPin) && <hr />}
-          {/* Afficher les notes non épinglées */}
-          {notes.filter((note) => !note.isPin).map((note) => (
-            <Button
-              key={note.id}
-              onClick={() => setSelectedNoteId(note.id)}
-              onDelete={() => deleteNote(note.id)}
-              onCheck={() => checkNote(note.id)}
-              onUnCheck={() => unCheckNote(note.id)}
-              onPin={() => pinNote(note.id)}
-              onUnPin={() => unPinNote(note.id)}
-              selected={selectedNoteId === note.id}
-              loading={pendingChanges[note.id]}
-              isCheck={note.isCheck} 
-              isPin={note.isPin}
-              className={`Note-button`}
-            >
-              {note.title}
-            </Button>
-          ))}
-        </>
-      )}
-    </aside>
+        <HeaderAside createNote={createNote} handleSearch={setSearchTerm} />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {filterNotes(notes.filter((note) => note.isPin)).map((note) => (
+              <Button
+                key={note.id}
+                onClick={() => setSelectedNoteId(note.id)}
+                onDelete={() => deleteNote(note.id)}
+                onCheck={() => checkNote(note.id)}
+                onUnCheck={() => unCheckNote(note.id)}
+                onPin={() => pinNote(note.id)}
+                onUnPin={() => unPinNote(note.id)}
+                selected={selectedNoteId === note.id}
+                loading={pendingChanges[note.id]}
+                isCheck={note.isCheck}
+                isPin={note.isPin}
+                className={`Note-button`}
+              >
+                {note.title}
+              </Button>
+            ))}
+            {notes.some((note) => note.isPin) && <hr />}
+            {filterNotes(notes.filter((note) => !note.isPin)).map((note) => (
+              <Button
+                key={note.id}
+                onClick={() => setSelectedNoteId(note.id)}
+                onDelete={() => deleteNote(note.id)}
+                onCheck={() => checkNote(note.id)}
+                onUnCheck={() => unCheckNote(note.id)}
+                onPin={() => pinNote(note.id)}
+                onUnPin={() => unPinNote(note.id)}
+                selected={selectedNoteId === note.id}
+                loading={pendingChanges[note.id]}
+                isCheck={note.isCheck}
+                isPin={note.isPin}
+                className={`Note-button`}
+              >
+                {note.title}
+              </Button>
+            ))}
+          </>
+        )}
+      </aside>
       <main className="Main">
         {selectedNoteId && (
           <div>

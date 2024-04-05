@@ -3,8 +3,8 @@
     {
       "id": "bde1",
       "title": "A faire /!\\",
-      "content": "- composent loading, note, etc.\n- Ajouter la recherche (titre + body)\n- Affichage des messages d'erreurs\n- Revoir le Loader\n- Theme jour/nuit ?\n- Affichage de l'User\n",
-      "date": "2024-04-05T09:56:38.249Z",
+      "content": "- Ajouter la recherche (titre + body)\n- Affichage des messages d'erreurs\n- Theme jour/nuit ?\n- Affichage de l'User\n",
+      "date": "2024-04-05T10:09:32.645Z",
       "isPin": true,
       "isCheck": false
     },
@@ -18,9 +18,9 @@
     },
     {
       "id": "b21f",
-      "title": "azerty1",
+      "title": "banane",
       "content": "1111111111111111111111",
-      "date": "2024-04-04T12:25:35.705Z",
+      "date": "2024-04-05T10:42:57.552Z",
       "isPin": false,
       "isCheck": true
     },
@@ -35,8 +35,8 @@
     {
       "id": "b0c7",
       "title": "azerty2",
-      "content": "2222222222222222222222222",
-      "date": "2024-04-04T10:53:50.763Z",
+      "content": "banane",
+      "date": "2024-04-05T10:42:50.854Z",
       "isPin": false,
       "isCheck": false
     },
@@ -45,7 +45,7 @@
       "title": "Nouvelle note",
       "content": "hgfhj1",
       "date": "2024-04-04T14:05:48.743Z",
-      "isPin": true,
+      "isPin": false,
       "isCheck": true
     }
   ],

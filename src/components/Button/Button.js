@@ -4,7 +4,6 @@ import pinIcon from "./pin.svg";
 import unPinIcon from "./unpin.svg";
 import checkIcon from "./check.svg";
 import checkCircleIcon from "./check_circle.svg";
-import { Loading } from "../Loading/Loading";
 import styles from "./Button.module.css";
 
 function Button({ onClick, onDelete, onCheck, onUnCheck, onPin, onUnPin, selected, loading, isCheck, isPin, children }) {

@@ -1,0 +1,11 @@
+.Add-button {
+    text-decoration: underline;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .Add-button img {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+  }
