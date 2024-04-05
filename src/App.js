@@ -188,10 +188,8 @@ function App() {
   }
 
   if (!isDarkMode) {
-    // on ajout la classe light
     document.body.classList.add("light");
   } else {
-    // on retire la classe light
     document.body.classList.remove("light");
   }
 

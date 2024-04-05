@@ -7,6 +7,8 @@
   left: 0px;
   bottom: 0px;
   background-color: rgb(29, 35, 39);
+  overflow-y: auto; 
+  scrollbar-width: none; 
 }
 
 .Side-light {
@@ -17,6 +19,8 @@
   bottom: 0px;
   background-color: rgba(181, 181, 181, 0.743);
   border-right: 1px solid black;
+  overflow-y: auto; 
+  scrollbar-width: none; 
 }
 
 .Main {
