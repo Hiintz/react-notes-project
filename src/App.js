@@ -1,10 +1,13 @@
 import "./App.css";
 import Button from "./components/Button/Button";
-import { Loading }  from "./components/Loading/Loading";
+import { Loading } from "./components/Loading/Loading";
 import { HeaderAside } from "./components/HeaderAside/HeaderAside";
 import { useEffect, useState, useRef } from "react";
+import dayNight from "./day-night.svg";
+import dayNightLight from "./day-night-light.svg";
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [notes, setNotes] = useState(null);
   const [user, setUser] = useState(null);
@@ -175,15 +178,27 @@ function App() {
 
   const filterNotes = (notes) => {
     return notes.filter((note) =>
-        note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        note.content.toLowerCase().includes(searchTerm.toLowerCase())
+      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
-}; 
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  }
+
+  if (!isDarkMode) {
+    // on ajout la classe light
+    document.body.classList.add("light");
+  } else {
+    // on retire la classe light
+    document.body.classList.remove("light");
+  }
 
   return (
     <>
-      <aside className="Side">
-        <HeaderAside createNote={createNote} handleSearch={setSearchTerm} />
+      <aside className={isDarkMode ? "Side" : "Side-light"}>
+        <HeaderAside createNote={createNote} handleSearch={setSearchTerm} isDarkMode={isDarkMode}/>
         {isLoading ? (
           <Loading />
         ) : (
@@ -201,7 +216,8 @@ function App() {
                 loading={pendingChanges[note.id]}
                 isCheck={note.isCheck}
                 isPin={note.isPin}
-                className={`Note-button`}
+                isDarkMode={isDarkMode}
+                className={isDarkMode ? `Note-button` : `Note-button-light`}
               >
                 {note.title}
               </Button>
@@ -220,7 +236,8 @@ function App() {
                 loading={pendingChanges[note.id]}
                 isCheck={note.isCheck}
                 isPin={note.isPin}
-                className={`Note-button`}
+                isDarkMode={isDarkMode}
+                className={isDarkMode ? `Note-button` : `Note-button-light`}
               >
                 {note.title}
               </Button>
@@ -229,7 +246,13 @@ function App() {
         )}
       </aside>
       <main className="Main">
-      <div className="UserName">{user && user.name}</div>
+        <div className={isDarkMode ? `UserName` : `UserName-light`}>{user && user.name}<br />
+          {isDarkMode ? (
+            <img src={dayNight} alt="Mode nuit" onClick={toggleDarkMode} className="dayNight" />
+          ) : (
+            <img src={dayNightLight} alt="Mode jour" onClick={toggleDarkMode} className="dayNight" />
+          )}
+        </div>
         {selectedNoteId && (
           <div>
             <h2>

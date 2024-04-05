@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./HeaderAside.css";
 import plusIcon from "./plus.svg";
+import plusIconLight from "./plus-light.svg";
 import search from "./search.svg";
+import searchLight from "./search-light.svg";
 import unsearch from "./unsearch.svg";
+import unsearchLight from "./unsearch-light.svg";
 
-export function HeaderAside({ createNote, handleSearch }) {
+export function HeaderAside({ createNote, handleSearch, isDarkMode}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchVisible, setSearchVisible] = useState(false);
 
@@ -24,11 +27,11 @@ export function HeaderAside({ createNote, handleSearch }) {
     return (
         <>
             <div className="Add-button">
-                <img src={plusIcon} alt="Ajouter une note" onClick={createNote} />
+                <img src={isDarkMode ? plusIcon : plusIconLight} alt="Ajouter une note" onClick={createNote} />
                 {searchVisible ? (
-                    <img src={unsearch} alt="Fermer" className="Loupe-icon" onClick={toggleSearch} />
+                    <img src={isDarkMode ? unsearch : unsearchLight} alt="Fermer" className="Loupe-icon" onClick={toggleSearch} />
                 ) : (
-                    <img src={search} alt="Rechercher" className="Loupe-icon" onClick={toggleSearch} />
+                    <img src={isDarkMode ? search : searchLight} alt="Rechercher" className="Loupe-icon" onClick={toggleSearch} />
                 )}
             </div>
             {searchVisible && (

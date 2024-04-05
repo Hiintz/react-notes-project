@@ -3,8 +3,8 @@
     {
       "id": "bde1",
       "title": "A faire /!\\",
-      "content": "- Affichage des messages d'erreurs\n- Theme jour/nuit ? \n- pagination (overflow-y:auto)\n- tags",
-      "date": "2024-04-05T12:13:49.159Z",
+      "content": "- Affichage des messages d'erreurs\n- Theme jour/nuit ? \n- pagination (overflow-y:auto)\n- tags ",
+      "date": "2024-04-05T12:40:52.248Z",
       "isPin": true,
       "isCheck": false
     },
@@ -13,7 +13,7 @@
       "title": "11111122223333333",
       "content": "1111122222222222222",
       "date": "2024-04-05T10:06:21.015Z",
-      "isPin": false,
+      "isPin": true,
       "isCheck": false
     },
     {
